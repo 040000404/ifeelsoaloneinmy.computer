@@ -1,268 +1,311 @@
 <!DOCTYPE html>
-<html lang="">
-
+<html>
 <head>
   <title>haryunglee@gmail.com</title>
   <link rel="icon" href="favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    html{
-            background: radial-gradient(circle, rgba(228,233,248,0.4539390756302521) 0%, rgba(190,200,200,1) 90%);
-            animation: animateBg 10s linear infinite;
-            background-size: 100% 1100%;
-            overflow-x: hidden;
-            overflow-y: hidden;
-    }
 
-  @keyframes animateBg {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 0% 100%; }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body{
+    background: #eeeeff;
+    font-family:gulim;
+    overflow: hidden;
   }
 
-    body{
-      margin:0;
-      overflow-x: hidden;
-      padding:0;
+  button{
+    width:90px;
+    text-align: center;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+  }
+  poem{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+  }
+    table{
+      font-size: 11px;
+      font-family: gulim;
+      border-collapse: separate;
+      border: 1px #f2f2f3 solid;
+      color: grey;
+      position: relative;
+      left: 250px;
+      top: 175px;
     }
-    @keyframes animateBtn {
-      0% { opacity: 0.6; }
-      100% { opacity:0.7; }
+    p{
+      font-size: 9px;
+      color: grey;
+      align-self: flex-end;
+      position: fixed;
+      bottom: 10vh;
     }
-      #lyrics{
-        display:flex;
-        flex-direction:column;
-        position:absolute;
-        left:0vw;
-        top:0%;
-        padding:0;
-        margin:0;
-        width: 100vw;
-        background: white;
-        background-position: center;
-        background-repeat: repeat-x;
-      }
-      #lyrics:hover{
-        background:rgba(244,230,244);
-      }
-       .all{
-         display: flex;
-         flex-direction: row;
-         height:auto;
-         padding: 0;
-         margin: 0;
-       }
-       #list{
-        width: 99vw;
-        height: 100vh;
-        display: flex;
-        margin-left: 5px;
-        flex-direction: column;
-        overflow-y: scroll;
-       }
-       #p5{
-         height: 180px;
-         margin: 0;
-         padding:0;
-       }
-       .left{
-         display:flex;
-         flex-direction: column;
-         width: 50vw;
-         text-align: center;
-         border: 1px solid grey;
-         overflow-x: hidden;
+    table td{
+      border: 1px #ffee45 solid;
+      padding: 3px;
+      height: 50px;
+      width: 50px;
+    }
+    table th{
+      border: 1px #ffee45 solid;
+      padding: 3px;
+      height: 50px;
+      width: 50px;
+      background-color: pink;
+      color: #ee5144;
+    }
+    .dragging {
+      background: #eee;
+      color: #000;
+    }
 
-       }
-       .right{
-         position: absolute;
-         width:50vw;
-         height:50vw;
-         left: 50vw;
-         justify-content: center;
-         top: 0;
-         display:flex;
-         flex-direction: column;
-         font-size: 100%;
-         margin-top:0;
-         margin-left:10px;
-       }
+    .hovering{
+      background: red;
+      border-left: 50px solid beige;
+      color: #555;
+    }
 
-       year{
-         color:grey;
-         font-size: 36px;
-         font-family: sans-serif;
-       }
-       works{
-         color:#fffff3;
-         font-size: 24px;
-         font-family: Times;
-       }
-       .categories{
-         display: flex;
-         flex-direction: row;
-         width: 100vw;
-         margin-top: 25px;
-         margin-bottom: 25px;
-         margin-left:0;
-       }
-       .left img{
-         align-self: center;
-         width: 48vw;
-         margin-top:10px;
-         margin-bottom: 10px;
-       }
-       #ribbon{
-         margin:0;
-         padding:0;
-         position:absolute;
-         height:100vh;
-         width:auto;
-         right:0;
-         top:0;
-         opacity:0.7;
-         filter: grayscale(100%);
-       }
+    .tableHead{
+      background: white;
+      cursor: pointer;
+    }
 
-       #text1{
-         opacity: 0;
-       }
-       #text2{
-         opacity: 0;
-       }
-        #text3{
-         opacity: 0;
-       }
+    .draggedDiv{
+      width: auto;
+      height: auto;
+      padding: 2px 8px;
+      position: absolute;
+      opacity: 0.5;
+    }
 
-       #left1:hover #text1{
-         opacity: 1;
-       }
-       #left2:hover #text2{
-         opacity: 1;
-       }
-       #left3:hover #text3{
-         opacity: 1;
-       }
 
-       worktitle{
-         color: gray;
-         display: inline;
-         font-family: sans-serif;
-         font-size: 130%;
-           transform: scale(.5, 1);
-       }
-@media only screen and (max-width: 768px) {
-      .left{
-        width:95vw;
+    @media only screen and (max-width: 768px) {
+      table{
+        font-size: 11px;
+        font-family: gulim;
+        border-collapse: separate;
+        border: 1px #f2f2f3 solid;
+        color: grey;
+        position: absolute;
+        left: 0px;
+        top: 50px;
       }
-      .right{
-        width:95vw;
-        position: relative;
-        left:0;
-        margin:0;
-        padding:0;
-      }
-      .left img{
-        width:93vw;
-      }
-      .all{
-        margin:0;
-        padding:0;
-        width:100vw;
-        height:100vh;
-        overflow-x: hidden;
-      }
-      body{
-        margin:0;
-        padding:0;
-        overflow-x: hidden;
-      }
-      #ribbon{
-        display:none;
-      }
-      #text1{
-        opacity: 1;
-      }
-      #text2{
-        opacity: 1;
-      }
-       #text3{
-        opacity: 1;
-      }
+    }
+</style>
+<script src='https://code.jquery.com/jquery-3.2.1.slim.js'
+        integrity='sha256-tA8y0XqiwnpwmOIl3SGAcFl2RvxHjA8qp0+1uCGmRmg=' crossorigin='anonymous'></script>
+<script>
+// JQuery
+$(function() {
+    var heads = $("#table0 th");
 
+    $.each(heads, function(inx, row ) {
+        var head = $(row);
+        head.bind( "selectstart", function() { return false });
+        head.bind( "mousedown", mousedown);
+        head.bind( "mouseover", mouseover);
+        head.bind( "mouseout", mouseout);
+        head.bind( "mouseup", mouseup);
+
+        head.addClass("tableHead");
+    });
+    $(document.documentElement).bind( "mouseup", documentMouseup);
+    $(document.documentElement).bind( "mousemove", documentMouseMove);
+});
+
+function documentMouseup(ev){
+    if (!dragTD) { return;}
+
+    $(dragTD).removeClass("dragging");
+    dragTD = null;
+    draggedDiv.remove();
+    draggedDiv = null;
 }
-  </style>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 
+function documentMouseMove(ev){
+    if (!draggedDiv) { return;}
+
+    draggedDiv.css({top: ev.pageY + -170 + "px", left: ev.pageX + -240 + "px"});
+}
+
+var dragTD = null, draggedDiv=null;
+function mousedown(ev){
+    dragTD = this;
+    $(this).addClass("dragging");
+
+    draggedDiv = $("<div>");
+    draggedDiv.addClass("draggedDiv");
+    draggedDiv.css({top: ev.pageY + -170 + "px", left:ev.pageX + -240 + "px"});
+    $(document.documentElement).append(draggedDiv);
+
+    var dragTable = $("<table>");
+    draggedDiv.append(dragTable);
+
+    var srcInx = dragTD.cellIndex;
+    var rows = $("#table0 tr");
+
+    for (var x=0; x<rows.length; x++) {
+        var tr = rows[x].cloneNode(false);
+        dragTable.append(tr);
+        var tds = rows[x].cells[srcInx].cloneNode(true);
+        tr.appendChild(tds);
+    }
+}
+
+function mouseover(ev){
+    if (dragTD === null) { return;}
+    $(this).addClass("hovering");
+}
+
+function mouseout(ev){
+    if (dragTD === null) { return;}
+    $(this).removeClass("hovering");
+}
+
+function mouseup(ev){
+    $(this).removeClass("hovering");
+    $(dragTD).removeClass("dragging");
+    draggedDiv.remove();
+    draggedDiv = null;
+
+    var srcInx = dragTD.cellIndex;
+    var tarInx = this.cellIndex;
+    var rows = $("#table0 tr");
+
+    for (var x=0; x<rows.length; x++) {
+        tds = rows[x].cells;
+        rows[x].insertBefore(tds[srcInx], tds[tarInx])
+    }
+
+    dragTD = null;
+}
+
+function touchHandler(event) {
+    var touch = event.changedTouches[0];
+
+    var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent({
+        touchstart: "mousedown",
+        touchmove: "mousemove",
+        touchend: "mouseup"
+    }[event.type], true, true, window, 1,
+        touch.screenX, touch.screenY,
+        touch.clientX, touch.clientY, false,
+        false, false, false, 0, null);
+
+    touch.target.dispatchEvent(simulatedEvent);
+    event.preventDefault();
+}
+
+function init() {
+    document.addEventListener("touchstart", touchHandler, true);
+    document.addEventListener("touchmove", touchHandler, true);
+    document.addEventListener("touchend", touchHandler, true);
+    document.addEventListener("touchcancel", touchHandler, true);
+}
+
+</script>
 </head>
-
 <body>
 
-  <div id="lyrics">
-<a href="http://soundcloud.com/melonobi" style="text-decoration: none;">ifeelsoaloneinmy.computer</a>
-    </div>
-    <div class="all">
-<img id="ribbon" src="ribbon.png">
+  <poem>
 
- <div id="list">
+<table id="table0">
+  <thead>
+    <tr>
+      <th>i</th>
+      <th>feel</th>
+      <th>with</th>
+      <th>you</th>
+      <th>at</th>
+      <th>most</th>
+      <th>when</th>
+      <th>i</th>
+      <th>am</th>
+      <th>alone</th>
+    </tr>
+  </thead>
+    <tbody>
+      <tr>
+        <td>나를</td>
+        <td>입은</td>
+        <td>만들어진</td>
+        <td>것 같아</td>
+        <td>입어보고</td>
+        <td>싶다</td>
+        <td>원래는</td>
+        <td>네가</td>
+        <td>위해</td>
+        <td>청바지를</td>
+      </tr>
+      <tr>
+        <td>나의</td>
+        <td>뗄 수가</td>
+        <td>천천히</td>
+        <td>청바지</td>
+        <td>수습될 수</td>
+        <td>없는</td>
+        <td>느낌으로</td>
+        <td>눈을</td>
+        <td>다리를</td>
+        <td>없구나</td>
+      </tr>
+      <tr>
+        <td>힘을</td>
+        <td>그려본다</td>
+        <td>나의</td>
+        <td>어깨에</td>
+        <td>손을</td>
+        <td>넣고</td>
+        <td>무릎에</td>
+        <td>안에</td>
+        <td>주고</td>
+        <td>뒷주머니에</td>
+      </tr>
+      <tr>
+        <td>잘못되면</td>
+        <td>머리를</td>
+        <td>마음이</td>
+        <td>아프겠지</td>
+        <td>내가</td>
+        <td>잘되고</td>
+        <td>네가</td>
+        <td>너의</td>
+        <td>나는</td>
+        <td>기대어본다</td>
+      </tr>
+      <tr>
+        <td>부탁하마 </td>
+        <td>	얼굴 위에</td>
+        <td>나의</td>
+        <td>다리는</td>
+        <td>얼굴이</td>
+        <td>필요해지면</td>
+        <td>꼭 너에게</td>
+        <td>내</td>
+        <td>그렇지만</td>
+        <td>다른</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>인어가</td>
+        <td></td>
+        <td></td>
+        <td>같구나</td>
+        <td></td>
+        <td></td>
+        <td>금방이라도</td>
+        <td></td>
+        <td>될 것</td>
+      </tr>
+    </tbody>
 
-   <div class="categories" id="c1">
-<div class="left" id="left1" style="background:rgba(238,245,255);">
-   <img  src="10v314g1.png">
-   <img src="10v314g2.png">
-   <img  src="10v314g3.png">
-   <img  src="10v314g4.png">
-   <img src="10v314g5.png">
-   <div id="text1" class="right">
-     <worktitle>10v314g (2021)</worktitle><br> 1 channel video, 13:22
-   </div>
- </div>
+  </table>
+  <p> 신해욱, 바지의 문제  &nbsp;  &nbsp;  &nbsp;   </p>
+  <button type="button" onclick="location.href='works.html'">최근 작업</button>
 
- </div>
-
- <div class="categories" id="c2">
-   <div class="left" id="left2" style="background:rgba(255,238,245);">
-   <img src="proccy.png">
-
-   <img src="proccy5.jpg">
-   <img src="proccy6.jpg">
-   <img src="proccy7.jpg">
-   <img src="proccy2.jpg">
-   <img src="proccy3.jpg">
-   <img src="proccy4.jpg">
-
-   <img src="mevs1.PNG">
-   <img src="mevs2.PNG">
-<a href="040000404.github.io/me-vs" style="font-size:250%;padding:25px;color:#2873D7;transform: scale(.5, 1);font-family:sans-serif;">visit website</a>
-   <div id="text2" class="right">
-     <worktitle>proccy1 (2020)</worktitle><br> looped 1 channel video, bleach, string, smartphone cradle
-     <br><br>
-     <worktitle>proccy2 (2020)</worktitle><br>looped sound mix, CD ROM, plastic bag, cooling fan
-     <br><br>
-   <worktitle>me-vs./ (2020)</worktitle><br> website, motor, sensor, keyboard
-  </div>
- </div>
-
- </div>
- <div class="categories" id="c3">
-   <div class="left" id="left3" style="background:rgba(255,245,208);">
-   <img src="j491.png">
-   <img src="j492.png">
-   <img src="j493.png">
-   <img src="j494.png">
-   <img src="j495.png">
-
-   <a href="j-49.github.io/j49" style="font-size:250%;padding:25px;color:#2873D7;transform: scale(.5, 1);font-family:sans-serif;">visit website</a>
-   <img src="j496.jpg">
-   <img src="j497.jpg">
-<img src="j498.png">
- <div id="text3"class="right">
-   <worktitle>J-49 (2020)</worktitle><br> website, game package CD
-
- </div>
- </div>
- </div>
-
- </div>
-</div>
+  </poem>
 </body>
 </html>
