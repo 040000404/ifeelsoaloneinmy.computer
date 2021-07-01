@@ -1,233 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>haryung</title>
-  <link rel="icon" href="favicon.png">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-  body{
-    background: #eeeeff;
-    font-family:gulim;
-    overflow: hidden;
-  }
-
-  button{
-    width:90px;
-    text-align: center;
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-  }
-  poem{
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
-  }
-    table{
-      font-size: 11px;
-      font-family: gulim;
-      border-collapse: separate;
-      border: 1px #f2f2f3 solid;
-      color: grey;
-      position: relative;
-      left: 250px;
-      top: 175px;
-    }
-    p{
-      font-size: 9px;
-      color: grey;
-      align-self: flex-end;
-      position: fixed;
-      bottom: 10vh;
-    }
-    table td{
-      border: 1px #ffee45 solid;
-      padding: 3px;
-      height: 50px;
-      width: 50px;
-    }
-    table th{
-      border: 1px #ffee45 solid;
-      padding: 3px;
-      height: 50px;
-      width: 50px;
-      background-color: pink;
-      font-size:250%;
-      transform:scale(1,.5);
-      color: #eee0e0;
-      font-family: times;
-    }
-    .dragging {
-      background: #eee;
-      color: #e0e0e0;
-    }
-
-    .hovering{
-      background: red;
-      border-left: 50px solid beige;
-      color: #555;
-    }
-
-    .tableHead{
-      background: white;
-      cursor: pointer;
-    }
-
-    .draggedDiv{
-      width: auto;
-      height: auto;
-      padding: 2px 8px;
-      position: absolute;
-      opacity: 0.5;
-    }
-
-
-    @media only screen and (max-width: 768px) {
-      table{
-        font-size: 11px;
-        font-family: gulim;
-        border-collapse: separate;
-        border: 1px #f2f2f3 solid;
-        color: grey;
-        position: absolute;
-        left: 0px;
-        top: 50px;
-      }
-    }
-</style>
-<script src='https://code.jquery.com/jquery-3.2.1.slim.js'
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="style.css">
+	<script src='https://code.jquery.com/jquery-3.2.1.slim.js'
         integrity='sha256-tA8y0XqiwnpwmOIl3SGAcFl2RvxHjA8qp0+1uCGmRmg=' crossorigin='anonymous'></script>
-<script>
-// JQuery
-$(function() {
-    var heads = $("#table0 th");
-
-    $.each(heads, function(inx, row ) {
-        var head = $(row);
-        head.bind( "selectstart", function() { return false });
-        head.bind( "mousedown", mousedown);
-        head.bind( "mouseover", mouseover);
-        head.bind( "mouseout", mouseout);
-        head.bind( "mouseup", mouseup);
-
-        head.addClass("tableHead");
-    });
-    $(document.documentElement).bind( "mouseup", documentMouseup);
-    $(document.documentElement).bind( "mousemove", documentMouseMove);
-});
-
-function documentMouseup(ev){
-    if (!dragTD) { return;}
-
-    $(dragTD).removeClass("dragging");
-    dragTD = null;
-    draggedDiv.remove();
-    draggedDiv = null;
-}
-
-function documentMouseMove(ev){
-    if (!draggedDiv) { return;}
-
-    draggedDiv.css({top: ev.pageY + -170 + "px", left: ev.pageX + -240 + "px"});
-}
-
-var dragTD = null, draggedDiv=null;
-function mousedown(ev){
-    dragTD = this;
-    $(this).addClass("dragging");
-
-    draggedDiv = $("<div>");
-    draggedDiv.addClass("draggedDiv");
-    draggedDiv.css({top: ev.pageY + -170 + "px", left:ev.pageX + -240 + "px"});
-    $(document.documentElement).append(draggedDiv);
-
-    var dragTable = $("<table>");
-    draggedDiv.append(dragTable);
-
-    var srcInx = dragTD.cellIndex;
-    var rows = $("#table0 tr");
-
-    for (var x=0; x<rows.length; x++) {
-        var tr = rows[x].cloneNode(false);
-        dragTable.append(tr);
-        var tds = rows[x].cells[srcInx].cloneNode(true);
-        tr.appendChild(tds);
-    }
-}
-
-function mouseover(ev){
-    if (dragTD === null) { return;}
-    $(this).addClass("hovering");
-}
-
-function mouseout(ev){
-    if (dragTD === null) { return;}
-    $(this).removeClass("hovering");
-}
-
-function mouseup(ev){
-    $(this).removeClass("hovering");
-    $(dragTD).removeClass("dragging");
-    draggedDiv.remove();
-    draggedDiv = null;
-
-    var srcInx = dragTD.cellIndex;
-    var tarInx = this.cellIndex;
-    var rows = $("#table0 tr");
-
-    for (var x=0; x<rows.length; x++) {
-        tds = rows[x].cells;
-        rows[x].insertBefore(tds[srcInx], tds[tarInx])
-    }
-
-    dragTD = null;
-}
-
-function touchHandler(event) {
-    var touch = event.changedTouches[0];
-
-    var simulatedEvent = document.createEvent("MouseEvent");
-        simulatedEvent.initMouseEvent({
-        touchstart: "mousedown",
-        touchmove: "mousemove",
-        touchend: "mouseup"
-    }[event.type], true, true, window, 1,
-        touch.screenX, touch.screenY,
-        touch.clientX, touch.clientY, false,
-        false, false, false, 0, null);
-
-    touch.target.dispatchEvent(simulatedEvent);
-    event.preventDefault();
-}
-
-function init() {
-    document.addEventListener("touchstart", touchHandler, true);
-    document.addEventListener("touchmove", touchHandler, true);
-    document.addEventListener("touchend", touchHandler, true);
-    document.addEventListener("touchcancel", touchHandler, true);
-}
-
-</script>
+<script src="tabledragger.min.js"> </script>
 </head>
 <body>
+<load id="load">
+	<div id="loadimages">
+		<img id="bonbon" src="bonbon.png">
+		<img id="eye" src="eye.jpeg">
+	</div>
+	<div id="myProgress">
+  		<div id="myBar"></div>
+	</div>
+	<p>intestine kiss</p>
 
-  <poem>
+</load>
+  <poem id="poem">
 
-<table id="table0">
+<table id="table" class="disable-select">
   <thead>
     <tr>
-      <th>i</th>
-      <th>feel</th>
-      <th>with</th>
-      <th>you</th>
-      <th>at</th>
-      <th>most</th>
-      <th>when</th>
-      <th>i</th>
-      <th>am</th>
-      <th>alone</th>
+      <th class="handle">i</th>
+      <th class="handle">feel</th>
+      <th class="handle">with</th>
+      <th class="handle">you</th>
+      <th class="handle">at</th>
+      <th class="handle">most</th>
+      <th class="handle">when</th>
+      <th class="handle">i</th>
+      <th class="handle">am</th>
+      <th class="handle">alone</th>
     </tr>
   </thead>
     <tbody>
@@ -306,9 +113,35 @@ function init() {
     </tbody>
 
   </table>
-  <p> 신해욱, 바지의 문제  &nbsp;  &nbsp;  &nbsp;   </p>
-  <button type="button" onclick="location.href='works.html'">최근 작업</button>
+  <p> (신해욱, 바지의 문제)  &nbsp;  &nbsp;  &nbsp;   </p>
+  <button type="button" onclick="location.href='main.html'">callme</button>
+</poem>
 
-  </poem>
+<script type="text/javascript">	
+	var i = 0;
+	window.onload =
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= 30) {
+        clearInterval(id);
+        i = 0;
+        document.getElementById("load").style.display = "none";
+        document.getElementById("poem").style.display = "block";
+
+
+      } else {
+        width = width +0.03;
+        elem.style.width = width + "vw";
+      }
+    }
+  }
+}
+	tableDragger(document.querySelector("#table"));
+</script> 
 </body>
 </html>
