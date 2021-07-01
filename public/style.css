@@ -147,4 +147,15 @@ button{
 	margin:  .5vw;
 }
 
-/*main*/ 
+/*main*/
+#online-now {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* start with the text hidden */
+  opacity: 0;
+  /* add a transition so it'll fade in nicely */
+  transition: opacity 0.2s ease-out;
+}
+
+#online-now.visible {
+  opacity: 1;
+}

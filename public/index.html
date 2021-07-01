@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="style.css">
+	<script src='https://code.jquery.com/jquery-3.2.1.slim.js'
+        integrity='sha256-tA8y0XqiwnpwmOIl3SGAcFl2RvxHjA8qp0+1uCGmRmg=' crossorigin='anonymous'></script>
+<script src="tabledragger.min.js"> </script>
+</head>
+<body>
+<load id="load">
+	<div id="loadimages">
+		<img id="bonbon" src="bonbon.png">
+		<img id="eye" src="eye.jpeg">
+	</div>
+	<div id="myProgress">
+  		<div id="myBar"></div>
+	</div>
+	<p>intestine kiss</p>
+
+</load>
+  <poem id="poem">
+
+<table id="table" class="disable-select">
+  <thead>
+    <tr>
+      <th class="handle">i</th>
+      <th class="handle">feel</th>
+      <th class="handle">with</th>
+      <th class="handle">you</th>
+      <th class="handle">at</th>
+      <th class="handle">most</th>
+      <th class="handle">when</th>
+      <th class="handle">i</th>
+      <th class="handle">am</th>
+      <th class="handle">alone</th>
+    </tr>
+  </thead>
+    <tbody>
+      <tr>
+        <td>나를</td>
+        <td>입은</td>
+        <td>만들어진</td>
+        <td>것 같아</td>
+        <td>입어보고</td>
+        <td>싶다</td>
+        <td>원래는</td>
+        <td>네가</td>
+        <td>위해</td>
+        <td>청바지를</td>
+      </tr>
+      <tr>
+        <td>나의</td>
+        <td>뗄 수가</td>
+        <td>천천히</td>
+        <td>청바지</td>
+        <td>수습될 수</td>
+        <td>없는</td>
+        <td>느낌으로</td>
+        <td>눈을</td>
+        <td>다리를</td>
+        <td>없구나</td>
+      </tr>
+      <tr>
+        <td>힘을</td>
+        <td>그려본다</td>
+        <td>나의</td>
+        <td>어깨에</td>
+        <td>손을</td>
+        <td>넣고</td>
+        <td>무릎에</td>
+        <td>안에</td>
+        <td>주고</td>
+        <td>뒷주머니에</td>
+      </tr>
+      <tr>
+        <td>잘못되면</td>
+        <td>머리를</td>
+        <td>마음이</td>
+        <td>아프겠지</td>
+        <td>내가</td>
+        <td>잘되고</td>
+        <td>네가</td>
+        <td>너의</td>
+        <td>나는</td>
+        <td>기대어본다</td>
+      </tr>
+      <tr>
+        <td>부탁하마 </td>
+        <td>	얼굴 위에</td>
+        <td>나의</td>
+        <td>다리는</td>
+        <td>얼굴이</td>
+        <td>필요해지면</td>
+        <td>꼭 너에게</td>
+        <td>내</td>
+        <td>그렇지만</td>
+        <td>다른</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>인어가</td>
+        <td></td>
+        <td></td>
+        <td>같구나</td>
+        <td></td>
+        <td></td>
+        <td>금방이라도</td>
+        <td></td>
+        <td>될 것</td>
+      </tr>
+    </tbody>
+
+  </table>
+  <p> (신해욱, 바지의 문제)  &nbsp;  &nbsp;  &nbsp;   </p>
+  <button type="button" onclick="location.href='main.html'">callme</button>
+</poem>
+
+<script type="text/javascript">	
+	var i = 0;
+	window.onload =
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= 30) {
+        clearInterval(id);
+        i = 0;
+        document.getElementById("load").style.display = "none";
+        document.getElementById("poem").style.display = "block";
+
+
+      } else {
+        width = width +0.03;
+        elem.style.width = width + "vw";
+      }
+    }
+  }
+}
+	tableDragger(document.querySelector("#table"));
+</script> 
+</body>
+</html>
